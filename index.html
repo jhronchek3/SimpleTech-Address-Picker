@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Address Picker Test</title>
-  </head>
-  <body>
-    <h1>GitHub Pages Setup Successful</h1>
-    <p>If you can see this message in your browser, hosting works!</p>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>Radar Address Picker</title>
+
+  <!-- Load Radar JS SDK – replace YOUR_KEY below -->
+  <script src="https://js.radar.com/v1.0?publishableKey=prj_live_pk_a3aa7f9173c858edaf3a9f469f940f9aec40eaf3></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f8f9fa;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    #autocomplete {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 8px;
+      background: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Select an Address</h2>
+
+  <div id="autocomplete"></div>
+
+  <script>
+    // Initialize the Radar autocomplete UI
+    Radar.ui.autocomplete({
+      container: '#autocomplete',
+      limit: 8,
+      placeholder: "Start typing an address...",
+      onSelection: result => {
+
+        // Send selected address data back to Glide
+        parent.postMessage({
+          type: "address-selected",
+          formatted: result.address.formattedAddress,
+          lat: result.latitude,
+          lng: result.longitude
+        }, "*");
+      }
+    });
+  </script>
+
+</body>
 </html>
