@@ -24,14 +24,18 @@
         placeholder: 'Search address',
         limit: 8,
         minCharacters: 3,
-        onSelection: (address) => {
+ onSelection: (address) => {
   parent.postMessage(
     {
       type: "radar-address",
       formatted: address.address.formattedAddress,
       latitude: address.latitude,
       longitude: address.longitude
-      });
-    </script>
-  </body>
+    },
+    "*"
+  );
+},
+  });
+</script>
+</body> 
 </html>
