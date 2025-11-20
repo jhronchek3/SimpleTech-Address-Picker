@@ -1,57 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Radar Address Picker</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="https://js.radar.com/v4.5.3/radar.css" rel="stylesheet">
+    <script src="https://js.radar.com/v4.5.3/radar.min.js"></script>
+  </head>
 
-  <!-- Load Radar JS SDK – replace YOUR_KEY below -->
-  <script src="https://js.radar.com/v1.0?publishableKey=prj_live_pk_a3aa7f9173c858edaf3a9f469f940f9aec40eaf3"></script>
+  <body>
+    <div id="autocomplete"></div>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f8f9fa;
-    }
+    <script type="text/javascript">
+      Radar.initialize('prj_live_pk_a3aa7f9173c858edaf3a9f469f940f9aec40eaf3');
 
-    h2 {
-      font-size: 20px;
-      margin-bottom: 12px;
-    }
-
-    #autocomplete {
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 8px;
-      background: white;
-    }
-  </style>
-</head>
-
-<body>
-
-  <h2>Select an Address</h2>
-
-  <div id="autocomplete"></div>
-
-  <script>
-    // Initialize the Radar autocomplete UI
-    Radar.ui.autocomplete({
-      container: '#autocomplete',
-      limit: 8,
-      placeholder: "Start typing an address...",
-      onSelection: result => {
-
-        // Send selected address data back to Glide
-        parent.postMessage({
-          type: "address-selected",
-          formatted: result.address.formattedAddress,
-          lat: result.latitude,
-          lng: result.longitude
-        }, "*");
-      }
-    });
-  </script>
-
-</body>
+      // create autocomplete input
+      Radar.ui.autocomplete({
+        container: 'autocomplete',
+        showMarkers: true,
+        markerColor: '#ACBDC8',
+        responsive: true,
+        width: '600px',
+        maxHeight: '600px',
+        placeholder: 'Search address',
+        limit: 8,
+        minCharacters: 3,
+        // omit near to use default IP address location
+        near: null,
+        onSelection: (address) => {
+          // do something with selected address
+        },
+      });
+    </script>
+  </body>
 </html>
